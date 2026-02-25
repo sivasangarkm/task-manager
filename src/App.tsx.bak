@@ -1,0 +1,46 @@
+import { useState } from "react";
+import type { Task } from "./types/Task";
+
+export default function App() {
+  const [tasks, setTasks] = useState<Task[]>([
+    { id: 1, title: "Learn React", completed: false },
+  ]);
+
+  const [newTaskTitle, setNewTaskTitle] = useState("");
+
+  const addTask = () => {
+    if (!newTaskTitle.trim()) return;
+
+    const newTask: Task = {
+      id: Date.now(),
+      title: newTaskTitle,
+      completed: false,
+    };
+
+    setTasks([...tasks, newTask]);
+    setNewTaskTitle("");
+  };
+
+  return (
+    <div>
+      <h1>Task Manager</h1>
+      <p>Total tasks: {tasks.length}</p>
+
+      <input
+        type="text"
+        value={newTaskTitle}
+        onChange={(e) => setNewTaskTitle(e.target.value)}
+        placeholder="Enter new task"
+      />
+      <button onClick={addTask}>Add Task</button>
+
+      <ul>
+        {tasks.map((task) => (
+          <li key={task.id}>
+            {task.title} - {task.completed ? "Done" : "Pending"}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
