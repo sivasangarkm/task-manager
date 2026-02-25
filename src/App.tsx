@@ -1,20 +1,18 @@
-import { useState } from "react";
-import ProductList from "./expense-tracker/components/ProductList";
+import { useEffect, useState } from "react";
+
+const connect = () => console.log("Connecting...");
+const disconnect = () => console.log("Disconnecting...");
+
 function App() {
-  const [category, setCategory] = useState("");
-  return (
-    <div className="mb-3">
-      <select
-        className="form-select"
-        onChange={(event) => setCategory(event.target.value)}
-      >
-        <option value=""></option>
-        <option value="Clothing">Clothing</option>
-        <option value="Households">Households</option>
-      </select>
-      <ProductList category={category}></ProductList>
-    </div>
-  );
+  useEffect(() => {
+    connect();
+
+    return () => {
+      disconnect();
+    };
+  });
+
+  return <div></div>;
 }
 
 export default App;
