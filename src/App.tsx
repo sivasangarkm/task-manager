@@ -1,15 +1,18 @@
-import { useLayoutEffect, useRef } from "react";
-
+import { useState } from "react";
+import ProductList from "./expense-tracker/components/ProductList";
 function App() {
-  const ref = useRef<HTMLInputElement>(null);
-
-  useLayoutEffect(() => {
-    ref.current?.focus();
-  }, []);
-
+  const [category, setCategory] = useState("");
   return (
     <div className="mb-3">
-      <input autoFocus ref={ref} type="text" className="form-control" />
+      <select
+        className="form-select"
+        onChange={(event) => setCategory(event.target.value)}
+      >
+        <option value=""></option>
+        <option value="Clothing">Clothing</option>
+        <option value="Households">Households</option>
+      </select>
+      <ProductList category={category}></ProductList>
     </div>
   );
 }
